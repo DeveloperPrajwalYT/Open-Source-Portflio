@@ -1,2 +1,833 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nep — Developer & Creator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Cursor Follower -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
 
-<--- test --->
+    <!-- Particle Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher" id="themeSwitcher">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme panel">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+        </button>
+        <div class="theme-options" id="themeOptions">
+            <button class="theme-btn active" data-theme="purple" title="Purple Haze">
+                <span class="theme-color" style="background: linear-gradient(135deg, #8B5CF6, #EC4899);"></span>
+                <span class="theme-name">Purple Haze</span>
+            </button>
+            <button class="theme-btn" data-theme="ocean" title="Ocean Depths">
+                <span class="theme-color" style="background: linear-gradient(135deg, #06B6D4, #3B82F6);"></span>
+                <span class="theme-name">Ocean Depths</span>
+            </button>
+            <button class="theme-btn" data-theme="emerald" title="Emerald Forest">
+                <span class="theme-color" style="background: linear-gradient(135deg, #10B981, #84CC16);"></span>
+                <span class="theme-name">Emerald Forest</span>
+            </button>
+            <button class="theme-btn" data-theme="sunset" title="Sunset Blaze">
+                <span class="theme-color" style="background: linear-gradient(135deg, #F59E0B, #EF4444);"></span>
+                <span class="theme-name">Sunset Blaze</span>
+            </button>
+            <button class="theme-btn" data-theme="midnight" title="Midnight Rose">
+                <span class="theme-color" style="background: linear-gradient(135deg, #F43F5E, #BE185D);"></span>
+                <span class="theme-name">Midnight Rose</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <span class="logo-bracket">&lt;</span>
+                <span class="logo-text">Nep</span>
+                <span class="logo-bracket">/&gt;</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="nav-link active" data-section="home">Home</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#clients" class="nav-link" data-section="clients">Clients</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/developerprajwalyt" target="_blank" rel="noopener" class="nav-github">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <button class="nav-menu-btn" id="navMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#home" class="mobile-link" data-section="home">Home</a>
+            <a href="#about" class="mobile-link" data-section="about">About</a>
+            <a href="#skills" class="mobile-link" data-section="skills">Skills</a>
+            <a href="#projects" class="mobile-link" data-section="projects">Projects</a>
+            <a href="#clients" class="mobile-link" data-section="clients">Clients</a>
+            <a href="#contact" class="mobile-link" data-section="contact">Contact</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-bg-elements">
+                <div class="hero-orb hero-orb-1"></div>
+                <div class="hero-orb hero-orb-2"></div>
+                <div class="hero-orb hero-orb-3"></div>
+                <div class="hero-grid"></div>
+            </div>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge animate-on-scroll">
+                        <span class="badge-dot"></span>
+                        <span>Available for new projects</span>
+                    </div>
+                    <h1 class="hero-title animate-on-scroll">
+                        <span class="hero-greeting">Hey, I'm</span>
+                        <span class="hero-name">
+                            <span class="name-letter" style="--i:0">N</span><span class="name-letter" style="--i:1">e</span><span class="name-letter" style="--i:2">p</span>
+                        </span>
+                    </h1>
+                    <div class="hero-subtitle animate-on-scroll">
+                        <span class="subtitle-static">I build</span>
+                        <span class="subtitle-dynamic">
+                            <span class="typing-text" id="typingText"></span>
+                            <span class="typing-cursor">|</span>
+                        </span>
+                    </div>
+                    <p class="hero-description animate-on-scroll">
+                        A passionate developer with <strong>5+ years</strong> of experience crafting exceptional digital experiences. 
+                        <strong>40+ projects</strong> delivered. Trusted by top creators.
+                    </p>
+                    <div class="hero-cta animate-on-scroll">
+                        <a href="#projects" class="btn btn-primary">
+                            <span>View My Work</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <span>Let's Talk</span>
+                        </a>
+                        <a href="https://github.com/developerprajwalyt" target="_blank" rel="noopener" class="btn btn-github">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+                    <div class="hero-stats animate-on-scroll">
+                        <div class="stat">
+                            <span class="stat-number" data-count="5">0</span>
+                            <span class="stat-label">Years Exp.</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="40">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat">
+                            <span class="stat-number" data-count="25">0</span><span class="stat-plus">+</span>
+                            <span class="stat-label">Happy Clients</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual animate-on-scroll">
+                    <div class="hero-avatar-wrapper">
+                        <div class="avatar-ring"></div>
+                        <div class="avatar-ring avatar-ring-2"></div>
+                        <div class="avatar-container">
+                            <div class="avatar-placeholder">
+                                <span class="avatar-emoji">👨‍💻</span>
+                            </div>
+                        </div>
+                        <div class="floating-tech floating-tech-1">
+                            <span>⚛️</span>
+                        </div>
+                        <div class="floating-tech floating-tech-2">
+                            <span>🟨</span>
+                        </div>
+                        <div class="floating-tech floating-tech-3">
+                            <span>🐍</span>
+                        </div>
+                        <div class="floating-tech floating-tech-4">
+                            <span>🔥</span>
+                        </div>
+                        <div class="floating-tech floating-tech-5">
+                            <span>💚</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-mouse">
+                    <div class="scroll-wheel"></div>
+                </div>
+                <span>Scroll Down</span>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section about-section" id="about">
+            <div class="section-container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-tag">&lt;about&gt;</span>
+                    <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+                    <p class="section-subtitle">Get to know the person behind the code</p>
+                </div>
+                <div class="about-grid">
+                    <div class="about-content animate-on-scroll">
+                        <div class="about-text">
+                            <p>Hey there! I'm <strong>Nep</strong>, a self-driven developer who's been immersed in the world of programming for over <strong>5 years</strong>. What started as curiosity about how websites work has evolved into a full-blown passion for creating exceptional digital experiences.</p>
+                            <p>Over the years, I've completed <strong>40+ projects</strong>, ranging from sleek web applications to complex full-stack solutions. I've had the incredible opportunity to work with renowned content creators and YouTubers, including <strong>Hyper Shiva</strong> and many others, delivering tools and platforms that serve millions of users.</p>
+                            <p>I believe in writing clean, efficient code and creating intuitive user experiences. Every project I take on is an opportunity to push boundaries and deliver something truly remarkable.</p>
+                        </div>
+                        <div class="about-highlights">
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🚀</div>
+                                <div class="highlight-info">
+                                    <h4>Fast Delivery</h4>
+                                    <p>Quick turnaround without compromising quality</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">💡</div>
+                                <div class="highlight-info">
+                                    <h4>Problem Solver</h4>
+                                    <p>Creative solutions for complex challenges</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🎯</div>
+                                <div class="highlight-info">
+                                    <h4>Detail Oriented</h4>
+                                    <p>Pixel-perfect execution every time</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🤝</div>
+                                <div class="highlight-info">
+                                    <h4>Client Focused</h4>
+                                    <p>Your vision, my expertise</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-timeline animate-on-scroll">
+                        <h3 class="timeline-title">My Journey</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-year">2019</span>
+                                    <h4>Started Coding</h4>
+                                    <p>Wrote my first lines of HTML/CSS and fell in love with web development.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-year">2020</span>
+                                    <h4>First Projects</h4>
+                                    <p>Built my initial projects with JavaScript and started learning React.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-year">2021</span>
+                                    <h4>Going Full-Stack</h4>
+                                    <p>Mastered Node.js, databases, and started selling projects to clients.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-year">2022</span>
+                                    <h4>Working with Creators</h4>
+                                    <p>Sold projects to famous YouTubers including Hyper Shiva and others.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <span class="timeline-year">2024</span>
+                                    <h4>40+ Projects & Growing</h4>
+                                    <p>Reached 40+ completed projects milestone. Continuously expanding my tech stack.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-close animate-on-scroll">
+                    <span class="section-tag">&lt;/about&gt;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section skills-section" id="skills">
+            <div class="section-container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-tag">&lt;skills&gt;</span>
+                    <h2 class="section-title">My <span class="gradient-text">Arsenal</span></h2>
+                    <p class="section-subtitle">Technologies & tools I work with daily</p>
+                </div>
+                <div class="skills-categories">
+                    <div class="skill-category animate-on-scroll">
+                        <h3 class="category-title">
+                            <span class="category-icon">🎨</span>
+                            Frontend
+                        </h3>
+                        <div class="skills-grid">
+                            <div class="skill-card" data-skill="React">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.31 0-.6.045-.882.144C4.726 1.945 4.2 3.58 4.62 5.89c-2.1.59-3.62 1.578-3.62 2.765 0 1.188 1.522 2.18 3.624 2.77-.404 2.317.076 3.955 1.582 4.425.28.098.582.144.882.144 1.346 0 3.107-.96 4.888-2.622 1.78 1.653 3.542 2.602 4.887 2.602.31 0 .6-.045.882-.144 1.507-.472 1.987-2.11 1.583-4.425 2.1-.59 3.62-1.58 3.62-2.77 0-1.187-1.522-2.176-3.624-2.765.404-2.317-.076-3.955-1.582-4.425a2.2 2.2 0 0 0-.882-.144zM6.17 17.884c0 .006 0 .01-.002.018-.004.013-.012.03-.024.044-.02.026-.058.05-.108.062-.256.083-.578-.01-.95-.262-.37-.254-.76-.625-1.14-1.09a18 18 0 0 0 1.088-.328c.212.64.457 1.216.726 1.7.078.14.15.268.218.386-.076.04-.146.076-.21.11l.024-.004c.136-.024.256-.042.378-.042zm11.66 0c0-.006 0-.01.002-.018.004-.013.012-.03.024-.044.02-.026.058-.05.108-.062.256-.083.578.01.95.262.37.254.76.625 1.14 1.09-.35.128-.713.24-1.088.328-.212-.64-.457-1.216-.726-1.7-.078-.14-.15-.268-.218-.386.076-.04.146-.076.21-.11l-.024.004c-.136.024-.256.042-.378.042zM12 15.9c-.722 0-1.44-.07-2.13-.196a18 18 0 0 1-1.048-1.83A18 18 0 0 1 7.91 12c.312-.644.664-1.253 1.048-1.83A18 18 0 0 1 12 8.1c.723 0 1.44.07 2.13.196.384.577.736 1.186 1.048 1.83.312.644.574 1.302.788 1.964-.214.662-.476 1.32-.788 1.964a18 18 0 0 1-1.048 1.83A13 13 0 0 1 12 15.9z"/></svg>
+                                </div>
+                                <span class="skill-name">React</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="92"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Next.js">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.572 0c-.176 0-.31.001-.358.007a19.76 19.76 0 0 1-.364.033C7.443.346 4.25 2.185 2.228 5.012a11.875 11.875 0 0 0-2.119 5.243c-.096.659-.108.854-.108 1.747s.012 1.089.108 1.748c.652 4.506 3.86 8.292 8.209 9.695.779.25 1.6.422 2.534.525.363.04 1.935.04 2.299 0 1.611-.178 2.977-.577 4.323-1.264.207-.106.247-.134.219-.158-.02-.013-.9-1.193-1.955-2.62l-1.919-2.592-2.404-3.558a338.739 338.739 0 0 0-2.422-3.556c-.009-.002-.018 1.579-.023 3.51-.007 3.38-.01 3.515-.052 3.595a.426.426 0 0 1-.206.214c-.075.037-.14.044-.495.044H7.81l-.108-.068a.44.44 0 0 1-.157-.171l-.05-.106.006-4.703.007-4.705.072-.092a.645.645 0 0 1 .174-.143c.096-.047.134-.051.54-.051.478 0 .558.018.682.154.035.038 1.337 1.999 2.895 4.361a10760.433 10760.433 0 0 0 4.735 7.17l1.9 2.878.096-.063a12.317 12.317 0 0 0 2.466-2.163 11.944 11.944 0 0 0 2.824-6.134c.096-.66.108-.854.108-1.748 0-.893-.012-1.088-.108-1.747-.652-4.506-3.86-8.292-8.208-9.695a12.597 12.597 0 0 0-2.499-.523A33.119 33.119 0 0 0 11.572 0zm4.069 7.217c.347 0 .408.005.486.047a.473.473 0 0 1 .237.277c.018.06.023 1.365.018 4.304l-.006 4.218-.744-1.14-.746-1.14v-3.066c0-1.982.01-3.097.023-3.15a.478.478 0 0 1 .233-.296c.096-.05.13-.054.5-.054z"/></svg>
+                                </div>
+                                <span class="skill-name">Next.js</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="JavaScript">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+                                </div>
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="95"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="TypeScript">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg>
+                                </div>
+                                <span class="skill-name">TypeScript</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="HTML/CSS">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.071-.999.058-.611.04-.46H6.522l.681 7.672h7.888l-.326 3.426-2.778.77-2.768-.77-.185-2.063H6.77l.36 4.176 4.87 1.35 4.852-1.344.66-7.432H8.531z"/></svg>
+                                </div>
+                                <span class="skill-name">HTML/CSS</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="98"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Tailwind">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8 c0.913,0.228,1.565,0.89,2.288,1.624c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8 c-0.913-0.228-1.565-0.89-2.288-1.624C10.337,13.382,8.976,12,6.001,12z"/></svg>
+                                </div>
+                                <span class="skill-name">Tailwind</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="90"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3 class="category-title">
+                            <span class="category-icon">⚙️</span>
+                            Backend
+                        </h3>
+                        <div class="skills-grid">
+                            <div class="skill-card" data-skill="Node.js">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0 l8.795-5.076c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072 c-0.081-0.047-0.189-0.047-0.271,0L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.136,0.235 l2.409,1.392c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253 v10.021c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z"/></svg>
+                                </div>
+                                <span class="skill-name">Node.js</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Python">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg>
+                                </div>
+                                <span class="skill-name">Python</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="87"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Express">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.134-.666A88.33 88.33 0 010 11.577zm1.127-.286h9.654c-.042-3.128-2.124-5.236-5.017-5.166-3.024.074-4.461 2.233-4.637 5.166z"/></svg>
+                                </div>
+                                <span class="skill-name">Express.js</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="MongoDB">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.193 9.555c-1.264-5.58-4.252-7.414-4.573-8.115-.28-.394-.53-.954-.735-1.44-.036.495-.055.685-.523 1.184-.723.566-4.438 3.682-4.74 10.02-.282 5.912 4.27 9.435 4.888 9.884l.07.05A73.49 73.49 0 0111.91 24h.481c.114-1.032.284-2.056.51-3.07.417-.296.604-.463.85-.693a11.342 11.342 0 003.639-8.464c.01-.814-.103-1.662-.197-2.218zm-5.336 8.195s0-8.291.275-8.29c.213 0 .49 10.695.49 10.695-.381-.045-.765-1.76-.765-2.405z"/></svg>
+                                </div>
+                                <span class="skill-name">MongoDB</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Firebase">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771zm16.794 3.692l-2.25-14a.54.54 0 00-.919-.295L3.316 19.365l7.856 4.427a1.621 1.621 0 001.588 0zM14.3 7.147l-1.82-3.482a.542.542 0 00-.96 0L3.53 17.984z"/></svg>
+                                </div>
+                                <span class="skill-name">Firebase</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="82"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="PostgreSQL">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5594 14.7228a.5269.5269 0 00-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3418-2.2466.1191-2.4348-.0539 1.1413-1.7489 2.0834-3.7171 2.7557-5.1516.1461-.3114.27-.5765.3725-.7929.3267-.6892.1699-.9318.0816-1.0544-.0927-.1284-.3449-.3167-.9075-.1941l-1.4738.3212c-.0636-.4251-.2503-.8208-.5547-1.1413-.6035-.6346-1.5573-.8063-2.1785-.8063-.1869 0-.3543.0134-.4935.0382C17.197 4.1329 15.4738 2.1579 12.6684 2.1579c-1.5573 0-2.8784.5832-3.8175 1.6858-.8578.5563-3.8428 2.8672-4.1068 5.7843-.0814.1011-.2165.3167-.3268.4744-.3494.5022-.7868 1.1299-.9622 2.0768-.2414 1.2958.0248 2.1309.1532 2.5176a.5141.5141 0 00.0768.1597c.1758.3013.5044.4832.8782.4832.2255 0 .4353-.0632.5966-.1578l.1486-.0882c-.3291 1.8484.3291 3.3376 1.8531 4.4558.0133.0102.0266.0192.0405.028-.2188.4578-.4421 1.0186-.4421 1.6376 0 1.1617.8668 1.9938 2.0609 1.9938.3562 0 .7038-.0744.9733-.1508l.6831-.2052c.7558-.2276 1.5388-.4632 2.2172-.4632.3562 0 .6557.0678.8895.2016 0 0 .0381.0202.1013.046.2414.0993.8804.3621 1.7091.3621.5195 0 1.0662-.1169 1.5456-.4227.5536-.3533.9481-.8893 1.1504-1.5601.0768-.2544.1193-.5135.1398-.7522.1873-.0587.3836-.1284.5826-.2276 1.023-.512 1.5702-1.3624 1.6275-2.5308.0065-.1284.0065-.2478.0065-.3579.2594-.0665.5126-.1534.7468-.2834.8063-.4474 1.2386-1.2173 1.2476-2.2239.0042-.4183-.0654-.7813-.1422-1.0625zM1.8553 14.8979c-.0833.0564-.1938.0949-.2949.0949-.1284 0-.2632-.0768-.3398-.2017-.116-.2006-.311-.768-.1062-1.8713.1367-.738.4795-1.2363.7988-1.6946.1556-.2232.2917-.4183.3709-.5966.0248.1078.0496.2436.0586.3899.0654.9881-.0496 2.3925-.4874 3.8794zm20.0751.3645c-.0881.7748-.6241 1.2339-1.5938 1.3649.1826-.5242.2733-1.1866.2733-1.9882v-.1555c.0088-.1284.0154-.2461.0154-.3578 0-.2793-.012-.545-.0266-.7919.6064-.1012 1.1119-.0154 1.3068.2276.0633.0786.0905.1807.0905.3212 0 .4946-.0271 1.0048-.0656 1.3797zM2.4565 8.2778c.2253-2.5444 3.0125-4.6964 3.7301-5.1629a.2665.2665 0 00.0701-.058C7.0958 2.0897 8.3379 1.5 9.7814 1.5c2.689 0 4.1228 2.0437 4.5326 3.0375-.8804-.1374-2.5041-.168-3.8018.3055-1.7693.6452-2.9362 1.523-3.1478 3.2291-.0654.5287-.0405 1.0931.0833 1.6779-.3613.0111-.7445.0382-.9282.0493-.5946.0337-1.1731.195-1.593.456-.0631-.3825-.0879-.7883-.0609-1.2145.0088-.122.0356-.3055.0678-.5247.098-.6707.2457-1.6833-.0768-2.2419-.1625-.2806-.4006-.4622-.7287-.5539a1.2636 1.2636 0 00-.359-.048c-.3927 0-.7673.1805-.8939.2522zM18.6782 4.5688c.5241 0 1.1571.1578 1.5251.5424.2929.3054.4074.7139.3614 1.2867-.0925-.0248-.1893-.0451-.2884-.0585-.498-.0672-1.072.029-1.653.2791-.4624.1985-.8511.4632-1.0576.6481-.0765-.1509-.1668-.2928-.2729-.4206-.3359-.4046-.8308-.6692-1.3923-.7444.2684-.3668.6723-.7522 1.1907-1.0368.619-.3396 1.1002-.4942 1.5862-.4959h.0008zM7.3506 10.8673c.0451-.3645.1621-.4742.6105-.6857.3132-.1473.7141-.2408 1.0883-.3012.0722.6054.2794 1.1551.5604 1.5768-.5287-.0246-1.1-.1036-1.6333-.295-.284-.1007-.4844-.2078-.626-.2944zm4.6685-5.4918c1.2455-.4541 2.8825-.3579 3.6095-.1793-.0222.161-.0662.3612-.1513.6055-.1375.3936-.3927.8488-.8084 1.399a6.1052 6.1052 0 00-.073-.3712c-.2454-1.0479-.8264-1.3735-1.148-1.4747-.1352-.0428-.3133-.0743-.5244-.0743-.4316 0-.9918.1259-1.5817.3897-.5899.2635-1.0866.6041-1.436.9851a2.3204 2.3204 0 00-.4316.6622c-.1579-.497-.1038-.9893-.0744-1.1527.1804-1.0046.9463-1.618 2.6193-2.288zm1.1847 2.3428c.2413.6166.3362 1.3955.2169 2.2554-.119.8485-.4306 1.553-.7786 2.0902-.1779-.4135-.3019-.9575-.2974-1.6027.0079-1.1074.3529-2.1268.8591-2.7429zm-4.9513 2.77c.0315-.2548.2-.6857.5649-.9918.2839-.238.6464-.4111 1.0781-.5155.0068.0767.0181.1534.034.2276.1159.5427.4444 1.0186.8308 1.3308-.1441.008-.2892.018-.4408.0321-.4511.042-1.0235.1148-1.4623.0993-.2613-.0088-.4487-.0534-.5535-.1011-.0362-.0161-.0395-.0452-.0512-.0814zm5.6345 10.8298c-.0609.1893-.3177.9408-.5922 1.1256-.5536.3714-1.3759.2275-1.8645-.0048l-.1103-.0519c-.3202-.146-.3787-.2117-.435-.2926-.0586-.0836-.1148-.2366-.0836-.5967.0154-.176.0631-.3806.1284-.5991.4578-.0744.9498-.0358 1.4374.1148.519.1605.997.4251 1.3287.7633.0585.0585.109.1284.1476.2016.0184.0351.0274.0581.044.0398zM10.7478 21.816c-.7949 0-1.3285-.5287-1.3285-1.2476 0-.376.1375-.7613.3127-1.0712.1756.0881.3736.1555.5896.198.484.094.9618.0767 1.4422-.0359l.6848-.2054c.2302-.0694.4768-.1365.7128-.1365.0946 0 .1826.0088.2637.0292-.0315.1032-.0631.2018-.0834.2838-.7016.2804-1.498.5828-2.0879.7793-.344.115-.7128.2116-1.1016.2738-.1349.021-.2726.0335-.4044.0335zm4.6844-1.9479c-.0159.0924-.0431.2026-.088.3276-.1736.536-.4777.9536-.8836 1.2133-.5512.3535-1.258.3714-1.8711.2411.0586-.0314.1148-.0654.1621-.1058.5693-.4791.7174-1.255.7673-1.6109.0296-.2117.048-.5534.048-.5534.6367-.1419 1.2-.0382 1.5802.1578.1668.086.2589.1986.2851.3303zm3.2127-4.5906c-.0878 1.0161-.529 1.6291-1.3489 1.8748-.5537.1657-1.1911.1411-1.8207-.0563-.0903-.028-.1713-.0608-.2548-.0944.0405-.309.0607-.6246.0495-.9294-.0185-.4892-.1418-.9397-.3668-1.34-.0043-.0074-.007-.0162-.012-.0237.6127-.1282 1.4507-.2004 2.241.0226.6443.1816 1.2228.4849 1.4738.6896.0313.0263.0463.0541.0389.0968l-.001-.14zm1.0277-2.4626c-.0994.1762-.4228.2792-.8938.2792-.2413 0-.5107-.0337-.8015-.0994.0102-.189.0135-.3802.0088-.5668-.0065-.2344-.0268-.468-.0584-.6966.4959-.074.9484-.0538 1.2682.0616.4041.1453.5446.397.5446.6688 0 .124-.0225.2548-.0679.3532z"/></svg>
+                                </div>
+                                <span class="skill-name">PostgreSQL</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="78"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category animate-on-scroll">
+                        <h3 class="category-title">
+                            <span class="category-icon">🛠️</span>
+                            Tools & Others
+                        </h3>
+                        <div class="skills-grid">
+                            <div class="skill-card" data-skill="Git">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.66 2.66c.645-.222 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"/></svg>
+                                </div>
+                                <span class="skill-name">Git</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="92"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="VS Code">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
+                                </div>
+                                <span class="skill-name">VS Code</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="95"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Docker">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.186m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186H2.172a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m21.062 1.38c-.543-.306-1.283-.472-2.207-.472-.633 0-1.326.087-1.95.27-.146-.6-.397-1.124-.754-1.523-.645-.72-1.613-1.086-2.882-1.086h-.11c-.22-.325-.593-.525-1-.525h-.044a1.47 1.47 0 00-.392.058c-.082-.063-.17-.12-.263-.172a6.44 6.44 0 00-2.028-.617h-.004C9.752 5.073 8.39 5.06 7.12 5.427c-1.39.403-2.28 1.2-2.58 2.097a6.03 6.03 0 00-.276 1.224c-.148-.003-.293.007-.437.03-1.45.236-2.381 1.058-2.74 2.386-.287 1.058-.145 2.439.465 3.334.013.02.015.042.03.06l.072.084c.55.614 1.382.972 2.395.972h16.312c.93 0 1.712-.273 2.323-.813.613-.54 1.003-1.32 1.158-2.318.17-1.09-.03-1.96-.546-2.513m-.653 2.317c-.109.7-.382 1.25-.81 1.632-.43.384-1.01.577-1.725.577H3.573c-.688 0-1.273-.23-1.686-.665-.016-.017-.032-.035-.045-.053-.424-.608-.534-1.66-.322-2.437.254-.935.92-1.47 1.928-1.633.24-.04.51-.04.79-.005.36.044.648-.152.709-.507.007-.043.015-.085.02-.129.08-.56.175-1.226.463-1.833.22-.464.846-1.134 2.09-1.493 1.07-.31 2.24-.284 3.217.073a5.026 5.026 0 011.72.733c.162.122.357.18.545.16h.043c-.003.028-.003.057-.003.085V10.1c0 .44.285.82.686.953.004 0 .006.002.008.002.076.024.158.04.243.04h.12c.296.004.564.092.71.239.268.27.437.67.54 1.207a.636.636 0 00.695.5 5.036 5.036 0 012.227.167c.624.2.995.434 1.203.583-.007.065-.018.127-.03.19"/></svg>
+                                </div>
+                                <span class="skill-name">Docker</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="75"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Figma">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491zM12.735 7.51h3.117c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-3.117V7.51zm0 1.471H8.148c-2.476 0-4.49-2.014-4.49-4.49S5.672 0 8.148 0h4.588v8.981zm-4.587-7.51c-1.665 0-3.019 1.355-3.019 3.019s1.354 3.02 3.019 3.02h3.117V1.471H8.148zm4.587 15.019H8.148c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98zM8.148 8.981c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h3.117V8.981H8.148zM8.172 24c-2.489 0-4.515-2.014-4.515-4.49s2.014-4.49 4.49-4.49h4.588v4.441c0 2.503-2.047 4.539-4.563 4.539zm-.024-7.51a3.023 3.023 0 0 0-3.019 3.019c0 1.665 1.365 3.019 3.044 3.019 1.705 0 3.093-1.376 3.093-3.068v-2.97H8.148zm7.704 0h-.098c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h.098c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.49-4.49 4.49zm-.098-7.509c-1.665 0-3.019 1.355-3.019 3.019s1.355 3.019 3.019 3.019h.098c1.665 0 3.019-1.355 3.019-3.019s-1.355-3.019-3.019-3.019h-.098z"/></svg>
+                                </div>
+                                <span class="skill-name">Figma</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="80"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Netlify">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.934 8.519a1.044 1.044 0 01.303.23l2.349-1.045-.001-.001a1.04 1.04 0 01-.04-.268V6.98l-2.29.86a1.04 1.04 0 01-.321.679zM11.084 5.2a1.044 1.044 0 01.755-.564L12.2 3.16a1.044 1.044 0 01-.478-.167L9.205 4.6l1.817.568.062.031zM19.378 7.2l-2.39 1.064a1.04 1.04 0 01-.034.73l2.164 1.482a1.044 1.044 0 01.392-.254l.001-.001.547-2.627a1.044 1.044 0 01-.68-.394zM13.666 10.56a1.044 1.044 0 01-.375-.2l-2.114.872a1.044 1.044 0 01.037.207v.114l2.404-.548a1.044 1.044 0 01.048-.445zM12.04 8.003l2.508-.204a1.044 1.044 0 01.063-.267l-1.717-1.749a1.044 1.044 0 01-.732.285h-.052L12.04 8.003zM14.5 12.654l-.538-2.428a1.044 1.044 0 01-.49.072l-.658 2.552a1.044 1.044 0 01.548.244L14.5 12.654zM12.393 14.03a1.04 1.04 0 01-.154-.439l-2.39.54a1.044 1.044 0 01-.091.2l1.512 1.567 1.123-1.868zM17.932 13.667l-.778-2.37a1.044 1.044 0 01-.254.043l-.554 2.39a1.044 1.044 0 01.462.59l2.486.18a1.04 1.04 0 01-.024-.17l-1.338-.663zM14.854 13.397a1.044 1.044 0 01.068-.207l-1.157-.46a1.044 1.044 0 01-.531.28l-.25 1.873a1.044 1.044 0 01.325.15l1.545-1.636zM14.928 14.076l-1.498 1.586a1.044 1.044 0 01.062.38v.04l2.55.178a1.044 1.044 0 01.13-.535l-1.244-.649zM12.042 16.47a1.044 1.044 0 01-.478-.185l-1.72 1.35a1.044 1.044 0 01.044.228l2.738.193-.584-1.586zM9.272 18.405a1.044 1.044 0 01-.222-.424l-1.784-.253a1.044 1.044 0 01-.156.344l1.29 1.538.872-1.205zM6.624 17.618l-.463-2.04a1.044 1.044 0 01-.709-.058l-1.03 1.79a1.044 1.044 0 01.426.49l1.776-.182zM4.076 16.927l.975-1.693a1.044 1.044 0 01-.094-.404l-2.237-.383a1.044 1.044 0 01-.17.452l1.526 2.028zM2.273 14.177a1.044 1.044 0 01.178-.131L1.72 12.18a1.044 1.044 0 01-.398.135l.95 1.862zM9.394 12.576a1.044 1.044 0 01-.07-.266l-1.986-.108a1.044 1.044 0 01-.138.355l1.42 1.55.774-1.53zM9.49 11.67a1.044 1.044 0 01-.327-.484l-1.893.398a1.044 1.044 0 01.01.31l1.976.108a1.044 1.044 0 01.234-.332zM11.568 11.013a1.044 1.044 0 01-.076-.339l-2.272-.03a1.044 1.044 0 01-.182.607l2.073.875a1.044 1.044 0 01.457-1.113zM8.695 10.683l-1.633-1.357a1.044 1.044 0 01-.447.192l-.268 2.17a1.044 1.044 0 01.455.083l1.893-.398a1.04 1.04 0 010-.69zM7.003 8.727l-.826-1.993a1.044 1.044 0 01-.533.063L4.776 8.7a1.044 1.044 0 01.354.39l1.873-.363zM10.243 9.736a1.044 1.044 0 01-.065-.742l-1.973-.58a1.044 1.044 0 01-.254.393l1.633 1.356a1.044 1.044 0 01.659-.427zM10.743 8.814l1.935-.157a1.044 1.044 0 01-.078-.684l-1.817-.568a1.044 1.044 0 01-.313.684l.273.725zM15.19 7.327a1.044 1.044 0 01.363.226l2.29-.858a1.044 1.044 0 01-.05-.108l-2.627-.073a1.044 1.044 0 01.024.813zM14.764 5.672l2.64.073a1.044 1.044 0 01-.009-.073c0-.373.195-.7.488-.885L16.32 3.35a1.044 1.044 0 01-.584.373L14.59 5.235a1.044 1.044 0 01.174.437zM16.068 3.063l1.503 1.38a1.044 1.044 0 01.706-.073l.765-2.39-.001-.001a1.044 1.044 0 01-.49-.174l-2.483 1.258zM19.72 2.148l-.765 2.39a1.044 1.044 0 01.35.433l2.388-.535a1.044 1.044 0 01-.159-.614l-1.814-.674z"/></svg>
+                                </div>
+                                <span class="skill-name">Netlify</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="88"></div>
+                                </div>
+                            </div>
+                            <div class="skill-card" data-skill="Vercel">
+                                <div class="skill-icon">
+                                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 22.525H0l12-21.05 12 21.05z"/></svg>
+                                </div>
+                                <span class="skill-name">Vercel</span>
+                                <div class="skill-level">
+                                    <div class="skill-bar" data-width="85"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-close animate-on-scroll">
+                    <span class="section-tag">&lt;/skills&gt;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section projects-section" id="projects">
+            <div class="section-container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-tag">&lt;projects&gt;</span>
+                    <h2 class="section-title">Featured <span class="gradient-text">Work</span></h2>
+                    <p class="section-subtitle">A selection from my 40+ completed projects</p>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, var(--primary), var(--secondary));">
+                                <span>🎮</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">MongoDB</span>
+                            </div>
+                            <h3 class="project-title">Gaming Dashboard</h3>
+                            <p class="project-desc">Full-stack gaming analytics platform sold to a major YouTube gaming creator. Real-time stats and overlay system.</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, #06B6D4, #8B5CF6);">
+                                <span>📊</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">Next.js</span>
+                                <span class="project-tag">TypeScript</span>
+                                <span class="project-tag">Prisma</span>
+                            </div>
+                            <h3 class="project-title">Creator Analytics Suite</h3>
+                            <p class="project-desc">Comprehensive analytics tool for content creators. Tracks engagement, growth metrics, and audience insights.</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, #F59E0B, #EF4444);">
+                                <span>🛒</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Firebase</span>
+                                <span class="project-tag">Stripe</span>
+                            </div>
+                            <h3 class="project-title">Merch Store Platform</h3>
+                            <p class="project-desc">Custom e-commerce platform built for YouTubers to sell their merchandise. Integrated payment and inventory management.</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, #10B981, #3B82F6);">
+                                <span>🤖</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Discord.js</span>
+                                <span class="project-tag">API</span>
+                            </div>
+                            <h3 class="project-title">Discord Bot Suite</h3>
+                            <p class="project-desc">Advanced Discord bots with moderation, music, games, and custom commands. Deployed across 500+ servers.</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, #EC4899, #8B5CF6);">
+                                <span>🎬</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">Next.js</span>
+                                <span class="project-tag">Tailwind</span>
+                                <span class="project-tag">Vercel</span>
+                            </div>
+                            <h3 class="project-title">Content Creator Hub</h3>
+                            <p class="project-desc">A centralized platform for managing content scheduling, collaboration, and cross-platform publishing.</p>
+                        </div>
+                    </div>
+                    <div class="project-card animate-on-scroll" data-tilt>
+                        <div class="project-image">
+                            <div class="project-placeholder" style="--bg: linear-gradient(135deg, #F43F5E, #F59E0B);">
+                                <span>⚡</span>
+                            </div>
+                            <div class="project-overlay">
+                                <a href="https://github.com/developerprajwalyt" target="_blank" class="project-link">View Code</a>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-tags">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Express</span>
+                                <span class="project-tag">Socket.io</span>
+                            </div>
+                            <h3 class="project-title">Live Stream Toolkit</h3>
+                            <p class="project-desc">Real-time streaming overlay tools with chat integration, alerts, and custom widgets for live broadcasters.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="projects-cta animate-on-scroll">
+                    <a href="https://github.com/developerprajwalyt" target="_blank" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>See All Projects on GitHub</span>
+                    </a>
+                </div>
+                <div class="section-close animate-on-scroll">
+                    <span class="section-tag">&lt;/projects&gt;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clients Section -->
+        <section class="section clients-section" id="clients">
+            <div class="section-container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-tag">&lt;clients&gt;</span>
+                    <h2 class="section-title">Trusted by <span class="gradient-text">Creators</span></h2>
+                    <p class="section-subtitle">Proud to have worked with amazing content creators</p>
+                </div>
+                <div class="clients-showcase animate-on-scroll">
+                    <div class="client-card featured">
+                        <div class="client-avatar">🎮</div>
+                        <h3 class="client-name">Hyper Shiva</h3>
+                        <span class="client-type">YouTuber</span>
+                        <p class="client-desc">Delivered custom gaming tools and platform solutions that enhanced content creation workflow.</p>
+                        <div class="client-stars">★★★★★</div>
+                    </div>
+                    <div class="client-card">
+                        <div class="client-avatar">🎬</div>
+                        <h3 class="client-name">Tech Creator</h3>
+                        <span class="client-type">YouTuber</span>
+                        <p class="client-desc">Built a comprehensive analytics dashboard for tracking channel growth and engagement.</p>
+                        <div class="client-stars">★★★★★</div>
+                    </div>
+                    <div class="client-card">
+                        <div class="client-avatar">🎵</div>
+                        <h3 class="client-name">Music Blogger</h3>
+                        <span class="client-type">Content Creator</span>
+                        <p class="client-desc">Designed and developed a music review platform with integrated streaming features.</p>
+                        <div class="client-stars">★★★★★</div>
+                    </div>
+                    <div class="client-card">
+                        <div class="client-avatar">📱</div>
+                        <h3 class="client-name">App Reviewer</h3>
+                        <span class="client-type">Influencer</span>
+                        <p class="client-desc">Created a custom website and merch store that boosted brand presence significantly.</p>
+                        <div class="client-stars">★★★★★</div>
+                    </div>
+                </div>
+                <div class="trust-metrics animate-on-scroll">
+                    <div class="trust-item">
+                        <span class="trust-number" data-count="40">0</span><span class="trust-plus">+</span>
+                        <span class="trust-label">Projects Delivered</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number" data-count="100">0</span><span class="trust-plus">%</span>
+                        <span class="trust-label">Client Satisfaction</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number" data-count="25">0</span><span class="trust-plus">+</span>
+                        <span class="trust-label">Repeat Clients</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-number" data-count="5">0</span><span class="trust-plus">M+</span>
+                        <span class="trust-label">Users Impacted</span>
+                    </div>
+                </div>
+                <div class="section-close animate-on-scroll">
+                    <span class="section-tag">&lt;/clients&gt;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact-section" id="contact">
+            <div class="section-container">
+                <div class="section-header animate-on-scroll">
+                    <span class="section-tag">&lt;contact&gt;</span>
+                    <h2 class="section-title">Let's <span class="gradient-text">Connect</span></h2>
+                    <p class="section-subtitle">Have a project in mind? Let's make it happen!</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info animate-on-scroll">
+                        <div class="contact-card email-card">
+                            <div class="contact-card-header">
+                                <div class="contact-icon-wrapper">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                        <path d="M22 4L12 13L2 4"/>
+                                    </svg>
+                                </div>
+                                <h3>Email Me</h3>
+                            </div>
+                            <p class="contact-card-desc">Got a question or want to work together? Drop me an email and I'll get back to you within 24 hours.</p>
+                            <a href="mailto:prajwalyt40185@gmail.com" class="contact-email-link">
+                                <span class="email-text">prajwalyt40185@gmail.com</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                            <button class="copy-email-btn" id="copyEmailBtn" data-email="prajwalyt40185@gmail.com">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span>Copy Email</span>
+                            </button>
+                        </div>
+                        <div class="contact-card github-card">
+                            <div class="contact-card-header">
+                                <div class="contact-icon-wrapper">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </div>
+                                <h3>GitHub</h3>
+                            </div>
+                            <p class="contact-card-desc">Check out my repositories and open-source contributions. Star a repo if you like what you see!</p>
+                            <a href="https://github.com/developerprajwalyt" target="_blank" rel="noopener" class="contact-github-link">
+                                <span>@developerprajwalyt</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-form-wrapper animate-on-scroll">
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="John Doe" required>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Your Email</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required>
+                                <span class="form-line"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                                <span class="form-line"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                <span>Send Message</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="section-close animate-on-scroll">
+                    <span class="section-tag">&lt;/contact&gt;</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#home" class="nav-logo">
+                        <span class="logo-bracket">&lt;</span>
+                        <span class="logo-text">Nep</span>
+                        <span class="logo-bracket">/&gt;</span>
+                    </a>
+                    <p>Crafting digital experiences that make a difference.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://github.com/developerprajwalyt" target="_blank" rel="noopener" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:prajwalyt40185@gmail.com" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M22 4L12 13L2 4"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nep. All rights reserved. Built with 💜 and lots of ☕</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Email copied to clipboard!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
