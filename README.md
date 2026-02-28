@@ -1,66 +1,51 @@
 # 🛸 Vibe Portfolio
 
 > [!IMPORTANT]
-> **Disclaimer:** I am a full-stack developer by trade and do **not** "vibe code" as my standard practice. This project was strictly a personal experiment to explore the boundaries of AI prompting, LLM-assisted architecture, and modern developer workflows. It’s a "yada yada" exploration into how far AI can push the UI/UX envelope under expert guidance.
+> **Disclaimer:** I am a full-stack developer by trade. I do **not** "vibe code" as my standard practice. This project was strictly an experiment for me to learn AI prompting and "yada yada"—exploring how to bridge the gap between AI generation and professional-grade implementation.
 
 [![Netlify Status](https://api.netlify.app/api/v1/badges/your-netlify-id/deploy-status)](https://beamish-naiad-e856c9.netlify.app/)
 **Live Demo:** [beamish-naiad-e856c9.netlify.app](https://beamish-naiad-e856c9.netlify.app/)
 
-Welcome to my first **"vibe-coded"** project. As a full-stack developer, I wanted to experiment with a workflow focused on rapid iteration, aesthetic intuition, and AI-assisted design—without sacrificing the code quality expected of a seasoned dev.
-
-This is a high-performance, open-source portfolio template featuring a deep level of customization, fluid motion, and a unique "vibe-centric" UI.
+A high-performance, open-source portfolio template featuring fluid motion and a unique "vibe-centric" UI. This project proves that even an AI-assisted "vibe" workflow can result in clean, accessible, and stunning web experiences when guided by a developer who knows their stuff.
 
 ---
 
-## ✨ Key Features
+## ✨ Features
 
-* **🎨 Dynamic Theme Engine:** Switch between multiple curated themes with a single click.
-* **🎬 Butter-Smooth Animations:** High-refresh-rate interactions that make the UI feel alive.
-* **⚙️ Deep Customization:** Open-source and built to be modified. Change your bio, projects, and socials in seconds.
-* **📱 Fully Responsive:** Hand-crafted layouts that look stunning on everything from ultra-wide monitors to mobile devices.
-* **🚀 Optimized for Netlify:** Built-in support for fast deployments and seamless hosting.
+* **🎨 Customizable Themes:** Switch between multiple curated aesthetic modes with a single click.
+* **🖱️ Mouse Cursor Highlight:** Interactive glow effect that follows your movement for a premium feel.
+* **🎬 Smooth Animations:** Hand-tuned transitions that make the UI feel alive and responsive.
+* **📱 Fully Responsive:** Works perfectly on everything from ultra-wide monitors to mobile devices.
+* **⚡ Zero Dependencies:** Built with vanilla HTML, CSS, and JS. No heavy frameworks or build steps required.
+* **🚀 Netlify Ready:** Designed to be dropped into Netlify for instant, global hosting.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Framework:** [React.js / Next.js / Vite]
-* **Styling:** Tailwind CSS (for that utility-first speed)
-* **Animations:** [Framer Motion / GSAP]
+* **HTML5 / CSS3** (Custom properties for the theme engine)
+* **Vanilla JavaScript** (For the interactions and "vibes")
 * **Deployment:** Netlify
-* **Workflow:** **Vibe-coded** (LLM-assisted architectural design + human-expert refinement)
+* **Workflow:** AI-Prompting Experimentation
 
 ---
 
 ## 🚀 Getting Started
 
-### Prerequisites
-* Node.js (v18 or higher)
-* npm / pnpm / yarn
+This is a **pure frontend project**. There is no `Node.js`, `npm`, or complex build process required. 
 
-### Installation
-1.  **Clone the repo:**
-    ```bash
-    git clone [https://github.com/your-username/vibe-portfolio.git](https://github.com/your-username/vibe-portfolio.git)
-    ```
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
+### How to use:
+1.  **Fork this repository** to your own GitHub account.
+2.  **Download the files** and open `index.html` in your browser to view it locally.
+3.  **Upload to your own repo** and connect it to Netlify (or any static host) for a live site in seconds.
 
 ---
 
-## 🧠 Why "Vibe Coded"?
+## 🧠 The "Vibe Coding" Experiment
 
-While I have a deep background in traditional full-stack development, this project was an experiment in **Flow State Development**. It represents a shift from "writing every line from scratch" to "architecting via intent." 
+While I usually spend my time in the depths of the full stack, this project was about testing the speed of **Intent-Based Development**. It represents a shift from writing every semicolon to architecting via high-level prompting. 
 
-> "Vibe coding isn't about being lazy; it's about being fast enough to keep up with your own creativity."
-
-The result is a project that was built at the speed of thought but maintains the clean architecture and performance of a professional-grade site.
+> "It's not just about the code; it's about how fast you can translate an aesthetic 'vibe' into a functional reality."
 
 ---
 
